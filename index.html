@@ -3,101 +3,119 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>History-taking VP testing framework — Sheets A–D (worked example EX-CP-01)</title>
+<title>History-taking VP testing framework — Sheets A–D (fillable)</title>
 <style>
   :root {
     --ink: #1a1a1a;
-    --muted: #5a5a5a;
-    --line: #222;
+    --muted: #5a636a;
+    --line: #333;
     --head: #0b3d5c;
-    --bg: #fafafa;
+    --accent: #0b6e7a;
+    --field: #fffef8;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
     font-family: "Segoe UI", Calibri, Arial, sans-serif;
     color: var(--ink);
-    background: #e8e8e8;
+    background: #dde3e8;
     line-height: 1.35;
   }
-  .wrap { max-width: 920px; margin: 0 auto; padding: 16px; }
+  .toolbar {
+    position: sticky; top: 0; z-index: 20;
+    background: #0b3d5c; color: #fff;
+    padding: 10px 16px;
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.2);
+  }
+  .toolbar strong { margin-right: 8px; }
+  .toolbar a { color: #cfe8f7; text-decoration: none; margin-right: 10px; font-size: .9rem; }
+  .toolbar .spacer { flex: 1; }
+  .btn {
+    border: 0; border-radius: 6px; padding: 8px 14px; cursor: pointer;
+    font-weight: 600; font-size: .9rem;
+  }
+  .btn-primary { background: #1ec8b0; color: #043; }
+  .btn-primary:hover { background: #3ad9c2; }
+  .btn-ghost { background: rgba(255,255,255,.12); color: #fff; }
+  .btn-ghost:hover { background: rgba(255,255,255,.22); }
+  .btn-warn { background: #f0a000; color: #222; }
+  .status { font-size: .8rem; opacity: .85; min-width: 8rem; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 16px; }
   .toc {
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 14px 18px;
-    margin-bottom: 16px;
+    background: #fff; border: 1px solid #bbb; border-radius: 8px;
+    padding: 14px 18px; margin-bottom: 16px;
   }
   .toc h1 { font-size: 1.15rem; margin: 0 0 6px; color: var(--head); }
-  .toc p { margin: 4px 0; font-size: 0.9rem; color: var(--muted); }
-  .toc a { color: var(--head); margin-right: 12px; }
+  .toc p { margin: 4px 0; font-size: .9rem; color: var(--muted); }
   .sheet {
-    background: #fff;
-    border: 1px solid #999;
-    margin-bottom: 20px;
-    padding: 0 0 14px;
-    page-break-after: always;
+    background: #fff; border: 1px solid #999; border-radius: 6px;
+    margin-bottom: 20px; overflow: hidden;
+    page-break-after: always; break-after: page;
   }
   .banner {
     border-bottom: 2px solid var(--line);
-    padding: 10px 14px;
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-    background: #f3f6f8;
+    padding: 10px 14px; background: #f3f6f8;
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
   }
   .banner strong { color: var(--head); }
   .banner em { color: var(--muted); font-style: italic; }
   .banner .title { width: 100%; font-weight: 700; font-size: 1.05rem; margin-top: 4px; }
-  .body { padding: 12px 14px; }
-  h3 { margin: 14px 0 8px; font-size: 0.95rem; color: var(--head); }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.88rem;
-    margin: 6px 0 10px;
-  }
-  th, td {
-    border: 1px solid var(--line);
-    padding: 6px 8px;
-    vertical-align: top;
-  }
+  .body { padding: 12px 14px 16px; }
+  h3 { margin: 14px 0 8px; font-size: .95rem; color: var(--head); }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; margin: 6px 0 10px; }
+  th, td { border: 1px solid var(--line); padding: 6px 8px; vertical-align: middle; }
   th { background: #eef2f5; text-align: left; }
   .lab { width: 34%; font-weight: 600; background: #f7f7f7; }
-  .blank { min-height: 1.2em; }
-  .note { font-size: 0.8rem; color: var(--muted); margin: 8px 0 0; }
-  .tick { font-family: "Segoe UI Symbol", sans-serif; }
-  .center { text-align: center; width: 48px; }
-  .nav { position: sticky; top: 0; z-index: 5; background: #0b3d5c; color: #fff; padding: 8px 16px; font-size: 0.85rem; }
-  .nav a { color: #cfe8f7; margin-right: 14px; text-decoration: none; }
-  .nav a:hover { text-decoration: underline; }
+  .note { font-size: .8rem; color: var(--muted); margin: 8px 0 0; }
+  .center { text-align: center; }
+  .w-check { width: 52px; text-align: center; }
+  input[type="text"], input[type="date"], input[type="number"], textarea, select {
+    width: 100%; border: 1px solid #9aa8b3; border-radius: 4px;
+    padding: 5px 7px; font: inherit; background: var(--field);
+  }
+  input[type="text"]:focus, textarea:focus, select:focus {
+    outline: 2px solid #1ec8b0; outline-offset: 1px;
+  }
+  textarea { min-height: 52px; resize: vertical; }
+  input[type="checkbox"], input[type="radio"] {
+    width: 18px; height: 18px; cursor: pointer; accent-color: var(--accent);
+  }
+  label.choice { display: inline-flex; align-items: center; gap: 6px; margin-right: 14px; cursor: pointer; }
+  .cuq-row td:nth-child(n+3) { text-align: center; }
+  .cuq-row input { margin: 0; }
+  .score-line { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .score-line input { max-width: 120px; }
   @media print {
     body { background: #fff; }
-    .nav, .toc { display: none; }
-    .sheet { border: none; margin: 0; page-break-after: always; }
+    .toolbar, .no-print { display: none !important; }
+    .wrap { max-width: none; padding: 0; }
+    .sheet { border: none; border-radius: 0; margin: 0; box-shadow: none; page-break-after: always; }
+    input, textarea, select {
+      border: none !important; background: transparent !important;
+      box-shadow: none !important; padding: 0 !important;
+    }
+    input[type="checkbox"], input[type="radio"] { accent-color: #000; }
   }
 </style>
 </head>
 <body>
-<div class="nav">
-  VP testing framework sheets ·
-  <a href="#sheet-a">Sheet A</a>
-  <a href="#sheet-b">Sheet B</a>
-  <a href="#sheet-c">Sheet C</a>
-  <a href="#sheet-d">Sheet D</a>
+<div class="toolbar no-print">
+  <strong>VP Sheets A–D</strong>
+  <a href="#sheet-a">A</a><a href="#sheet-b">B</a><a href="#sheet-c">C</a><a href="#sheet-d">D</a>
+  <span class="spacer"></span>
+  <span class="status" id="saveStatus">Autosave on</span>
+  <button type="button" class="btn btn-ghost" id="btnClear">Clear form</button>
+  <button type="button" class="btn btn-warn" id="btnPrint">Print / Save PDF…</button>
+  <button type="button" class="btn btn-primary" id="btnPdf">Export PDF</button>
 </div>
-<div class="wrap">
-  <div class="toc">
-    <h1>Complete testing framework protocol (worked example EX-CP-01)</h1>
-    <p>Packet 1 (teachers): Sheets A–C. Packet 2 (students): Sheet D only.</p>
-    <p>Session order: <strong>A (once) → interview → D → B → C</strong>. Do not sum B, C, and D into one overall score.</p>
-    <p>The twelve history items illustrate mapping a named guide to case facts; they are <em>not</em> a new validated instrument. Replace with the school guide before a real study.</p>
-    <p>
-      <a href="#sheet-a">Sheet A — Study setup</a>
-      <a href="#sheet-b">Sheet B — Learner history score</a>
-      <a href="#sheet-c">Sheet C — Simulator log</a>
-      <a href="#sheet-d">Sheet D — CUQ (student)</a>
-    </p>
+
+<div class="wrap" id="formRoot">
+  <div class="toc no-print">
+    <h1>Fillable testing framework — worked example EX-CP-01</h1>
+    <p>Click checkboxes / radios and type in the yellow fields. Data autosaves in this browser.</p>
+    <p>When finished: <strong>Export PDF</strong> downloads a filled PDF, or use <strong>Print / Save PDF</strong> (browser print dialog → Save as PDF).</p>
+    <p>Session order: <strong>A → interview → D → B → C</strong>. Do not sum B, C, and D into one score.</p>
   </div>
 
   <!-- ========== SHEET A ========== -->
@@ -110,43 +128,68 @@
     <div class="body">
       <h3>1. Study identity</h3>
       <table>
-        <tr><td class="lab">Protocol title</td><td>History-taking VP test — worked example</td></tr>
-        <tr><td class="lab">Programme / learner year</td><td>Clerkship / Year 4 (replace locally)</td></tr>
-        <tr><td class="lab">Named history guide</td><td>Local OSCE-style chest-pain history list (example; replace with school guide)</td></tr>
-        <tr><td class="lab">Number of checklist items</td><td>12</td></tr>
-        <tr><td class="lab">Case 1</td><td>EX-CP-01; acute chest pain; English</td></tr>
-        <tr><td class="lab">Case 2 (if any)</td><td>—</td></tr>
-        <tr><td class="lab">Case 3 (if any)</td><td>—</td></tr>
-        <tr><td class="lab">Teacher 1</td><td class="blank">&nbsp;</td></tr>
-        <tr><td class="lab">Teacher 2 (checks Sheet C)</td><td class="blank">&nbsp;</td></tr>
-        <tr><td class="lab">Agreement metric</td><td>AC1 / κ / ICC: _______________</td></tr>
-        <tr><td class="lab">Automation uses same checklist?</td><td>Yes / No &nbsp;&nbsp; Rule: _______________</td></tr>
+        <tr><td class="lab">Protocol title</td><td><input type="text" name="a_protocol" value="History-taking VP test — worked example"/></td></tr>
+        <tr><td class="lab">Programme / learner year</td><td><input type="text" name="a_programme" value="Clerkship / Year 4 (replace locally)"/></td></tr>
+        <tr><td class="lab">Named history guide</td><td><input type="text" name="a_guide" value="Local OSCE-style chest-pain history list (example; replace with school guide)"/></td></tr>
+        <tr><td class="lab">Number of checklist items</td><td><input type="number" name="a_n_items" value="12" min="1"/></td></tr>
+        <tr><td class="lab">Case 1</td><td><input type="text" name="a_case1" value="EX-CP-01; acute chest pain; English"/></td></tr>
+        <tr><td class="lab">Case 2 (if any)</td><td><input type="text" name="a_case2" value="—"/></td></tr>
+        <tr><td class="lab">Case 3 (if any)</td><td><input type="text" name="a_case3" value="—"/></td></tr>
+        <tr><td class="lab">Teacher 1</td><td><input type="text" name="a_teacher1" placeholder="Name"/></td></tr>
+        <tr><td class="lab">Teacher 2 (checks Sheet C)</td><td><input type="text" name="a_teacher2" placeholder="Name"/></td></tr>
+        <tr><td class="lab">Agreement metric</td><td>
+          <label class="choice"><input type="radio" name="a_metric" value="AC1"/> AC1</label>
+          <label class="choice"><input type="radio" name="a_metric" value="kappa"/> κ</label>
+          <label class="choice"><input type="radio" name="a_metric" value="ICC"/> ICC</label>
+          <input type="text" name="a_metric_note" placeholder="Value / note" style="margin-top:6px"/>
+        </td></tr>
+        <tr><td class="lab">Automation uses same checklist?</td><td>
+          <label class="choice"><input type="radio" name="a_auto" value="Yes"/> Yes</label>
+          <label class="choice"><input type="radio" name="a_auto" value="No"/> No</label>
+          <input type="text" name="a_auto_rule" placeholder="Rule:" style="margin-top:6px"/>
+        </td></tr>
       </table>
 
-      <h3>2. Claims to score (example ticks; change if needed)</h3>
+      <h3>2. Claims to score</h3>
       <table>
-        <tr><td class="lab">B1 History content checklist (required)</td><td><span class="tick">☑ Yes</span> &nbsp; ☐ No</td></tr>
-        <tr><td class="lab">B2 Interviewing process (optional)</td><td>☐ Yes &nbsp; <span class="tick">☑ No</span></td></tr>
-        <tr><td class="lab">B3 Diagnostic accuracy</td><td><span class="tick">☑ Yes</span> &nbsp; ☐ No</td></tr>
-        <tr><td class="lab">C Simulator fidelity / cross-turn consistency</td><td><span class="tick">☑ Yes</span> &nbsp; ☐ No</td></tr>
-        <tr><td class="lab">D Dialogue usability (CUQ)</td><td><span class="tick">☑ Yes</span> &nbsp; ☐ No</td></tr>
+        <tr><td class="lab">B1 History content checklist (required)</td><td>
+          <label class="choice"><input type="radio" name="a_b1" value="Yes" checked/> Yes</label>
+          <label class="choice"><input type="radio" name="a_b1" value="No"/> No</label>
+        </td></tr>
+        <tr><td class="lab">B2 Interviewing process (optional)</td><td>
+          <label class="choice"><input type="radio" name="a_b2" value="Yes"/> Yes</label>
+          <label class="choice"><input type="radio" name="a_b2" value="No" checked/> No</label>
+        </td></tr>
+        <tr><td class="lab">B3 Diagnostic accuracy</td><td>
+          <label class="choice"><input type="radio" name="a_b3" value="Yes" checked/> Yes</label>
+          <label class="choice"><input type="radio" name="a_b3" value="No"/> No</label>
+        </td></tr>
+        <tr><td class="lab">C Simulator fidelity / cross-turn consistency</td><td>
+          <label class="choice"><input type="radio" name="a_c" value="Yes" checked/> Yes</label>
+          <label class="choice"><input type="radio" name="a_c" value="No"/> No</label>
+        </td></tr>
+        <tr><td class="lab">D Dialogue usability (CUQ)</td><td>
+          <label class="choice"><input type="radio" name="a_d" value="Yes" checked/> Yes</label>
+          <label class="choice"><input type="radio" name="a_d" value="No"/> No</label>
+        </td></tr>
       </table>
 
       <h3>3. If B2 = Yes, choose exactly one process tool</h3>
       <table>
-        <tr><td class="lab">P1 Setrakian four domains (Setrakian et al., 2020)</td><td>☐</td></tr>
-        <tr><td class="lab">P2 CRI-HT-S (Fürstenberg et al., 2020)</td><td>☐</td></tr>
-        <tr><td class="lab">P3 Chen 12 codes (Chen et al., 2026)</td><td>☐</td></tr>
+        <tr><td class="lab">P1 Setrakian four domains (Setrakian et al., 2020)</td><td class="center"><input type="radio" name="a_process" value="P1"/></td></tr>
+        <tr><td class="lab">P2 CRI-HT-S (Fürstenberg et al., 2020)</td><td class="center"><input type="radio" name="a_process" value="P2"/></td></tr>
+        <tr><td class="lab">P3 Chen 12 codes (Chen et al., 2026)</td><td class="center"><input type="radio" name="a_process" value="P3"/></td></tr>
+        <tr><td class="lab">None (B2 = No)</td><td class="center"><input type="radio" name="a_process" value="none" checked/></td></tr>
       </table>
 
       <h3>4. Case facts (EX-CP-01) — script for the virtual patient</h3>
       <table>
-        <tr><td class="lab">Patient</td><td>52-year-old man</td></tr>
-        <tr><td class="lab">Chief complaint</td><td>Crushing central chest pain for 45 minutes</td></tr>
-        <tr><td class="lab">Key facts teachers score on Sheet B</td><td>Onset at rest; pressure/crushing; radiates to left arm; 7/10; worse with exertion; no relief yet; dyspnea; sweating; no syncope; first episode; smoker + hypertension; amlodipine only; father MI at age 54</td></tr>
-        <tr><td class="lab">Accepted key diagnosis (for B3)</td><td>Suspected acute coronary syndrome (ACS to be ruled out)</td></tr>
+        <tr><td class="lab">Patient</td><td><input type="text" name="a_patient" value="52-year-old man"/></td></tr>
+        <tr><td class="lab">Chief complaint</td><td><input type="text" name="a_cc" value="Crushing central chest pain for 45 minutes"/></td></tr>
+        <tr><td class="lab">Key facts teachers score on Sheet B</td><td><textarea name="a_keyfacts">Onset at rest; pressure/crushing; radiates to left arm; 7/10; worse with exertion; no relief yet; dyspnea; sweating; no syncope; first episode; smoker + hypertension; amlodipine only; father MI at age 54</textarea></td></tr>
+        <tr><td class="lab">Accepted key diagnosis (for B3)</td><td><input type="text" name="a_dx" value="Suspected acute coronary syndrome (ACS to be ruled out)"/></td></tr>
       </table>
-      <p class="note">Item-by-item scoring map is printed on Sheet B (stem = fact that counts as Yes). Chest-pain dialogue coding precedent: Chen et al., 2026.</p>
+      <p class="note">Item-by-item scoring map is on Sheet B. Chest-pain dialogue coding precedent: Chen et al., 2026.</p>
     </div>
   </section>
 
@@ -159,46 +202,116 @@
     </div>
     <div class="body">
       <table>
-        <tr><th>Learner ID</th><th>Case ID</th><th>Teacher ID</th><th>Date</th></tr>
-        <tr><td class="blank">&nbsp;</td><td>EX-CP-01</td><td class="blank">&nbsp;</td><td class="blank">&nbsp;</td></tr>
+        <tr>
+          <th>Learner ID</th><th>Case ID</th><th>Teacher ID</th><th>Date</th>
+        </tr>
+        <tr>
+          <td><input type="text" name="b_learner"/></td>
+          <td><input type="text" name="b_case" value="EX-CP-01"/></td>
+          <td><input type="text" name="b_teacher"/></td>
+          <td><input type="date" name="b_date"/></td>
+        </tr>
       </table>
 
       <h3>B1. History content</h3>
       <p class="note">Tick Yes only if the learner elicited that case fact (heard in the interview).</p>
       <table>
-        <tr><th class="center">No.</th><th>Stem</th><th>Fact that counts as Yes</th><th class="center">Yes</th><th class="center">No</th></tr>
-        <tr><td class="center">1</td><td>Onset / timing</td><td>Pain began about 45 min ago, at rest</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">2</td><td>Character</td><td>Crushing or pressure-like</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">3</td><td>Location / radiation</td><td>Central chest; radiates to left arm</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">4</td><td>Severity</td><td>About 7/10 (or equivalent)</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">5</td><td>Aggravating factors</td><td>Worse with exertion</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">6</td><td>Relieving factors</td><td>No relief so far / GTN not used</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">7</td><td>Associated dyspnea</td><td>Short of breath with the pain</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">8</td><td>Autonomic symptoms</td><td>Sweating (diaphoresis)</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">9</td><td>Syncope</td><td>No fainting / near-syncope</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">10</td><td>Prior cardiac history</td><td>First such episode; no known CAD</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">11</td><td>Risk factors</td><td>Current smoker and hypertension (both)</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">12</td><td>Family history</td><td>Father had MI at age 54</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td colspan="3"><strong>Total Yes / 12</strong></td><td colspan="2" class="center">_______</td></tr>
+        <tr><th class="w-check">No.</th><th>Stem</th><th>Fact that counts as Yes</th><th class="w-check">Yes</th><th class="w-check">No</th></tr>
+        <tr>
+          <td class="center">1</td><td>Onset / timing</td><td>Pain began about 45 min ago, at rest</td>
+          <td class="center"><input type="radio" name="b1_1" value="Yes"/></td>
+          <td class="center"><input type="radio" name="b1_1" value="No"/></td>
+        </tr>
+        <tr>
+          <td class="center">2</td><td>Character</td><td>Crushing or pressure-like</td>
+          <td class="center"><input type="radio" name="b1_2" value="Yes"/></td>
+          <td class="center"><input type="radio" name="b1_2" value="No"/></td>
+        </tr>
+        <tr>
+          <td class="center">3</td><td>Location / radiation</td><td>Central chest; radiates to left arm</td>
+          <td class="center"><input type="radio" name="b1_3" value="Yes"/></td>
+          <td class="center"><input type="radio" name="b1_3" value="No"/></td>
+        </tr>
+        <tr>
+          <td class="center">4</td><td>Severity</td><td>About 7/10 (or equivalent)</td>
+          <td class="center"><input type="radio" name="b1_4" value="Yes"/></td>
+          <td class="center"><input type="radio" name="b1_4" value="No"/></td>
+        </tr>
+        <tr>
+          <td class="center">5</td><td>Aggravating factors</td><td>Worse with exertion</td>
+          <td class="center"><input type="radio" name="b1_5" value="Yes"/></td>
+          <td class="center"><input type="radio" name="b1_5" value="No"/></td>
+        </tr>
+        <tr>
+          <td class="center">6</td><td>Relieving factors</td><td>No relief so far / GTN not used</td>
+          <td class="center"><input type="radio" name="b1_6" value="Yes"/></td>
+          <td class="center"><input type="radio" name="b1_6" value="No"/></td>
+        </tr>
+        <tr>
+          <td class="center">7</td><td>Associated dyspnea</td><td>Short of breath with the pain</td>
+          <td class="center"><input type="radio" name="b1_7" value="Yes"/></td>
+          <td class="center"><input type="radio" name="b1_7" value="No"/></td>
+        </tr>
+        <tr>
+          <td class="center">8</td><td>Autonomic symptoms</td><td>Sweating (diaphoresis)</td>
+          <td class="center"><input type="radio" name="b1_8" value="Yes"/></td>
+          <td class="center"><input type="radio" name="b1_8" value="No"/></td>
+        </tr>
+        <tr>
+          <td class="center">9</td><td>Syncope</td><td>No fainting / near-syncope</td>
+          <td class="center"><input type="radio" name="b1_9" value="Yes"/></td>
+          <td class="center"><input type="radio" name="b1_9" value="No"/></td>
+        </tr>
+        <tr>
+          <td class="center">10</td><td>Prior cardiac history</td><td>First such episode; no known CAD</td>
+          <td class="center"><input type="radio" name="b1_10" value="Yes"/></td>
+          <td class="center"><input type="radio" name="b1_10" value="No"/></td>
+        </tr>
+        <tr>
+          <td class="center">11</td><td>Risk factors</td><td>Current smoker and hypertension (both)</td>
+          <td class="center"><input type="radio" name="b1_11" value="Yes"/></td>
+          <td class="center"><input type="radio" name="b1_11" value="No"/></td>
+        </tr>
+        <tr>
+          <td class="center">12</td><td>Family history</td><td>Father had MI at age 54</td>
+          <td class="center"><input type="radio" name="b1_12" value="Yes"/></td>
+          <td class="center"><input type="radio" name="b1_12" value="No"/></td>
+        </tr>
+        <tr>
+          <td colspan="3"><strong>Total Yes / 12</strong> <button type="button" class="btn btn-ghost no-print" id="btnCountB1" style="padding:4px 8px;font-size:.8rem;background:#e8eef3;color:#0b3d5c">Count</button></td>
+          <td colspan="2" class="center"><input type="text" name="b1_total" id="b1_total" readonly placeholder="—"/></td>
+        </tr>
       </table>
 
       <h3>B2. Process</h3>
-      <p class="note">Skip in this example — Sheet A ticked No. If used later, circle one tool only.</p>
+      <p class="note">Skip if Sheet A ticked No. If used, choose one tool only.</p>
       <table>
         <tr><th class="center">P1 Setrakian</th><th class="center">P2 CRI-HT-S</th><th class="center">P3 Chen 12</th><th>Score / summary</th></tr>
-        <tr><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td>—</td></tr>
+        <tr>
+          <td class="center"><input type="radio" name="b2_tool" value="P1"/></td>
+          <td class="center"><input type="radio" name="b2_tool" value="P2"/></td>
+          <td class="center"><input type="radio" name="b2_tool" value="P3"/></td>
+          <td><input type="text" name="b2_summary" placeholder="—"/></td>
+        </tr>
       </table>
 
-      <h3>B3. Diagnosis (this example: Yes)</h3>
+      <h3>B3. Diagnosis</h3>
       <table>
         <tr><th>Accepted key diagnosis</th><th class="center">Correct?</th><th>What learner wrote</th></tr>
-        <tr><td>Suspected ACS / ACS to be ruled out</td><td class="center">Yes / No</td><td class="blank">&nbsp;</td></tr>
+        <tr>
+          <td><input type="text" name="b3_dx" value="Suspected ACS / ACS to be ruled out"/></td>
+          <td class="center">
+            <label class="choice"><input type="radio" name="b3_ok" value="Yes"/> Yes</label>
+            <label class="choice"><input type="radio" name="b3_ok" value="No"/> No</label>
+          </td>
+          <td><input type="text" name="b3_wrote" placeholder="Learner text"/></td>
+        </tr>
       </table>
 
       <h3>Agreement</h3>
       <table>
-        <tr><td class="lab">Human agreement (overall)</td><td class="blank">&nbsp;</td></tr>
-        <tr><td class="lab">Automation–human agreement (if used)</td><td class="blank">&nbsp;</td></tr>
+        <tr><td class="lab">Human agreement (overall)</td><td><input type="text" name="b_agree_human"/></td></tr>
+        <tr><td class="lab">Automation–human agreement (if used)</td><td><input type="text" name="b_agree_auto"/></td></tr>
       </table>
       <p class="note">Replace all twelve stems with the school guide before a real study. CUQ does not belong on this sheet.</p>
     </div>
@@ -214,36 +327,98 @@
     <div class="body">
       <table>
         <tr><th>Learner ID</th><th>Case ID</th><th>Teacher marking C</th><th>Second teacher check</th></tr>
-        <tr><td class="blank">&nbsp;</td><td>EX-CP-01</td><td class="blank">&nbsp;</td><td class="blank">&nbsp;</td></tr>
+        <tr>
+          <td><input type="text" name="c_learner"/></td>
+          <td><input type="text" name="c_case" value="EX-CP-01"/></td>
+          <td><input type="text" name="c_teacher1"/></td>
+          <td><input type="text" name="c_teacher2"/></td>
+        </tr>
       </table>
-      <p class="note">Each row = one student question + VP reply. Tick errors on the <em>VP reply</em>. Use Sheet A case facts: the VP must not invent a new story or contradict an earlier answer.</p>
+      <p class="note">Each row = one student question + VP reply. Tick errors on the <em>VP reply</em>.</p>
       <table>
         <tr>
-          <th class="center">Turn</th>
+          <th class="w-check">Turn</th>
           <th>Short note (student ask → VP said)</th>
-          <th class="center">Wrong target</th>
-          <th class="center">Extra talk</th>
-          <th class="center">Broke role</th>
-          <th class="center">Off case</th>
-          <th class="center">Contradicts</th>
+          <th class="w-check">Wrong target</th>
+          <th class="w-check">Extra talk</th>
+          <th class="w-check">Broke role</th>
+          <th class="w-check">Off case</th>
+          <th class="w-check">Contradicts</th>
         </tr>
-        <tr><td class="center">1</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">2</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">3</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">4</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">5</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">6</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">7</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
-        <tr><td class="center">8</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr>
+          <td class="center">1</td><td><input type="text" name="c_t1_note"/></td>
+          <td class="center"><input type="checkbox" name="c_t1_wrong"/></td>
+          <td class="center"><input type="checkbox" name="c_t1_extra"/></td>
+          <td class="center"><input type="checkbox" name="c_t1_role"/></td>
+          <td class="center"><input type="checkbox" name="c_t1_off"/></td>
+          <td class="center"><input type="checkbox" name="c_t1_contra"/></td>
+        </tr>
+        <tr>
+          <td class="center">2</td><td><input type="text" name="c_t2_note"/></td>
+          <td class="center"><input type="checkbox" name="c_t2_wrong"/></td>
+          <td class="center"><input type="checkbox" name="c_t2_extra"/></td>
+          <td class="center"><input type="checkbox" name="c_t2_role"/></td>
+          <td class="center"><input type="checkbox" name="c_t2_off"/></td>
+          <td class="center"><input type="checkbox" name="c_t2_contra"/></td>
+        </tr>
+        <tr>
+          <td class="center">3</td><td><input type="text" name="c_t3_note"/></td>
+          <td class="center"><input type="checkbox" name="c_t3_wrong"/></td>
+          <td class="center"><input type="checkbox" name="c_t3_extra"/></td>
+          <td class="center"><input type="checkbox" name="c_t3_role"/></td>
+          <td class="center"><input type="checkbox" name="c_t3_off"/></td>
+          <td class="center"><input type="checkbox" name="c_t3_contra"/></td>
+        </tr>
+        <tr>
+          <td class="center">4</td><td><input type="text" name="c_t4_note"/></td>
+          <td class="center"><input type="checkbox" name="c_t4_wrong"/></td>
+          <td class="center"><input type="checkbox" name="c_t4_extra"/></td>
+          <td class="center"><input type="checkbox" name="c_t4_role"/></td>
+          <td class="center"><input type="checkbox" name="c_t4_off"/></td>
+          <td class="center"><input type="checkbox" name="c_t4_contra"/></td>
+        </tr>
+        <tr>
+          <td class="center">5</td><td><input type="text" name="c_t5_note"/></td>
+          <td class="center"><input type="checkbox" name="c_t5_wrong"/></td>
+          <td class="center"><input type="checkbox" name="c_t5_extra"/></td>
+          <td class="center"><input type="checkbox" name="c_t5_role"/></td>
+          <td class="center"><input type="checkbox" name="c_t5_off"/></td>
+          <td class="center"><input type="checkbox" name="c_t5_contra"/></td>
+        </tr>
+        <tr>
+          <td class="center">6</td><td><input type="text" name="c_t6_note"/></td>
+          <td class="center"><input type="checkbox" name="c_t6_wrong"/></td>
+          <td class="center"><input type="checkbox" name="c_t6_extra"/></td>
+          <td class="center"><input type="checkbox" name="c_t6_role"/></td>
+          <td class="center"><input type="checkbox" name="c_t6_off"/></td>
+          <td class="center"><input type="checkbox" name="c_t6_contra"/></td>
+        </tr>
+        <tr>
+          <td class="center">7</td><td><input type="text" name="c_t7_note"/></td>
+          <td class="center"><input type="checkbox" name="c_t7_wrong"/></td>
+          <td class="center"><input type="checkbox" name="c_t7_extra"/></td>
+          <td class="center"><input type="checkbox" name="c_t7_role"/></td>
+          <td class="center"><input type="checkbox" name="c_t7_off"/></td>
+          <td class="center"><input type="checkbox" name="c_t7_contra"/></td>
+        </tr>
+        <tr>
+          <td class="center">8</td><td><input type="text" name="c_t8_note"/></td>
+          <td class="center"><input type="checkbox" name="c_t8_wrong"/></td>
+          <td class="center"><input type="checkbox" name="c_t8_extra"/></td>
+          <td class="center"><input type="checkbox" name="c_t8_role"/></td>
+          <td class="center"><input type="checkbox" name="c_t8_off"/></td>
+          <td class="center"><input type="checkbox" name="c_t8_contra"/></td>
+        </tr>
       </table>
-      <p class="note">Wrong target = answers something else; Extra talk = says more than asked; Broke role = speaks as doctor; Off case = invents / breaks script (Song et al., 2026; Holderried et al., 2024; Yi and Kim, 2025).</p>
+      <p class="note">Wrong target = answers something else; Extra talk = says more than asked; Broke role = speaks as doctor; Off case = invents / breaks script.</p>
 
       <h3>Summary</h3>
       <table>
-        <tr><td class="lab">Turns with any error / total turns</td><td class="blank">&nbsp;</td></tr>
-        <tr><td class="lab">Turns that contradict an earlier fact / total</td><td class="blank">&nbsp;</td></tr>
-        <tr><td class="lab">Teacher–teacher disagreement on this sheet</td><td class="blank">&nbsp;</td></tr>
+        <tr><td class="lab">Turns with any error / total turns</td><td><input type="text" name="c_sum_err" id="c_sum_err" placeholder="e.g. 2 / 8"/></td></tr>
+        <tr><td class="lab">Turns that contradict an earlier fact / total</td><td><input type="text" name="c_sum_contra" id="c_sum_contra"/></td></tr>
+        <tr><td class="lab">Teacher–teacher disagreement on this sheet</td><td><input type="text" name="c_sum_disagree"/></td></tr>
       </table>
+      <p class="no-print"><button type="button" class="btn btn-ghost" id="btnSumC" style="background:#e8eef3;color:#0b3d5c">Auto-fill error / contradiction counts</button></p>
     </div>
   </section>
 
@@ -257,37 +432,212 @@
     <div class="body">
       <table>
         <tr><th>Learner ID</th><th>Case ID</th><th>Date</th></tr>
-        <tr><td class="blank">&nbsp;</td><td>EX-CP-01 (or your case)</td><td class="blank">&nbsp;</td></tr>
+        <tr>
+          <td><input type="text" name="d_learner"/></td>
+          <td><input type="text" name="d_case" value="EX-CP-01"/></td>
+          <td><input type="date" name="d_date"/></td>
+        </tr>
       </table>
-      <p class="note">Circle one number per row. 1 = strongly disagree … 5 = strongly agree. Odd items positive; even items negative. Dialogue usability only (Holmes et al., 2019).</p>
+      <p class="note">1 = strongly disagree … 5 = strongly agree. Odd items positive; even items negative. Usability only (Holmes et al., 2019).</p>
       <table>
-        <tr><th class="center">No.</th><th>Statement</th><th class="center">1</th><th class="center">2</th><th class="center">3</th><th class="center">4</th><th class="center">5</th></tr>
-        <tr><td class="center">1</td><td>The chatbot’s personality was realistic and engaging</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">2</td><td>The chatbot seemed too robotic</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">3</td><td>The chatbot was welcoming during initial setup</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">4</td><td>The chatbot seemed very unfriendly</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">5</td><td>The chatbot explained its scope and purpose well</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">6</td><td>The chatbot gave no indication as to its purpose</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">7</td><td>The chatbot was easy to navigate</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">8</td><td>It would be easy to get confused when using the chatbot</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">9</td><td>The chatbot understood me well</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">10</td><td>The chatbot failed to recognise a lot of my inputs</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">11</td><td>Chatbot responses were useful, appropriate and informative</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">12</td><td>Chatbot responses were irrelevant</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">13</td><td>The chatbot coped well with any errors or mistakes</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">14</td><td>The chatbot seemed unable to handle any errors</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">15</td><td>The chatbot was very easy to use</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-        <tr><td class="center">16</td><td>The chatbot was very complex</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><th class="w-check">No.</th><th>Statement</th><th class="w-check">1</th><th class="w-check">2</th><th class="w-check">3</th><th class="w-check">4</th><th class="w-check">5</th></tr>
+        <tr class="cuq-row"><td class="center">1</td><td>The chatbot’s personality was realistic and engaging</td>
+          <td><input type="radio" name="cuq_1" value="1"/></td><td><input type="radio" name="cuq_1" value="2"/></td><td><input type="radio" name="cuq_1" value="3"/></td><td><input type="radio" name="cuq_1" value="4"/></td><td><input type="radio" name="cuq_1" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">2</td><td>The chatbot seemed too robotic</td>
+          <td><input type="radio" name="cuq_2" value="1"/></td><td><input type="radio" name="cuq_2" value="2"/></td><td><input type="radio" name="cuq_2" value="3"/></td><td><input type="radio" name="cuq_2" value="4"/></td><td><input type="radio" name="cuq_2" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">3</td><td>The chatbot was welcoming during initial setup</td>
+          <td><input type="radio" name="cuq_3" value="1"/></td><td><input type="radio" name="cuq_3" value="2"/></td><td><input type="radio" name="cuq_3" value="3"/></td><td><input type="radio" name="cuq_3" value="4"/></td><td><input type="radio" name="cuq_3" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">4</td><td>The chatbot seemed very unfriendly</td>
+          <td><input type="radio" name="cuq_4" value="1"/></td><td><input type="radio" name="cuq_4" value="2"/></td><td><input type="radio" name="cuq_4" value="3"/></td><td><input type="radio" name="cuq_4" value="4"/></td><td><input type="radio" name="cuq_4" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">5</td><td>The chatbot explained its scope and purpose well</td>
+          <td><input type="radio" name="cuq_5" value="1"/></td><td><input type="radio" name="cuq_5" value="2"/></td><td><input type="radio" name="cuq_5" value="3"/></td><td><input type="radio" name="cuq_5" value="4"/></td><td><input type="radio" name="cuq_5" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">6</td><td>The chatbot gave no indication as to its purpose</td>
+          <td><input type="radio" name="cuq_6" value="1"/></td><td><input type="radio" name="cuq_6" value="2"/></td><td><input type="radio" name="cuq_6" value="3"/></td><td><input type="radio" name="cuq_6" value="4"/></td><td><input type="radio" name="cuq_6" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">7</td><td>The chatbot was easy to navigate</td>
+          <td><input type="radio" name="cuq_7" value="1"/></td><td><input type="radio" name="cuq_7" value="2"/></td><td><input type="radio" name="cuq_7" value="3"/></td><td><input type="radio" name="cuq_7" value="4"/></td><td><input type="radio" name="cuq_7" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">8</td><td>It would be easy to get confused when using the chatbot</td>
+          <td><input type="radio" name="cuq_8" value="1"/></td><td><input type="radio" name="cuq_8" value="2"/></td><td><input type="radio" name="cuq_8" value="3"/></td><td><input type="radio" name="cuq_8" value="4"/></td><td><input type="radio" name="cuq_8" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">9</td><td>The chatbot understood me well</td>
+          <td><input type="radio" name="cuq_9" value="1"/></td><td><input type="radio" name="cuq_9" value="2"/></td><td><input type="radio" name="cuq_9" value="3"/></td><td><input type="radio" name="cuq_9" value="4"/></td><td><input type="radio" name="cuq_9" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">10</td><td>The chatbot failed to recognise a lot of my inputs</td>
+          <td><input type="radio" name="cuq_10" value="1"/></td><td><input type="radio" name="cuq_10" value="2"/></td><td><input type="radio" name="cuq_10" value="3"/></td><td><input type="radio" name="cuq_10" value="4"/></td><td><input type="radio" name="cuq_10" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">11</td><td>Chatbot responses were useful, appropriate and informative</td>
+          <td><input type="radio" name="cuq_11" value="1"/></td><td><input type="radio" name="cuq_11" value="2"/></td><td><input type="radio" name="cuq_11" value="3"/></td><td><input type="radio" name="cuq_11" value="4"/></td><td><input type="radio" name="cuq_11" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">12</td><td>Chatbot responses were irrelevant</td>
+          <td><input type="radio" name="cuq_12" value="1"/></td><td><input type="radio" name="cuq_12" value="2"/></td><td><input type="radio" name="cuq_12" value="3"/></td><td><input type="radio" name="cuq_12" value="4"/></td><td><input type="radio" name="cuq_12" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">13</td><td>The chatbot coped well with any errors or mistakes</td>
+          <td><input type="radio" name="cuq_13" value="1"/></td><td><input type="radio" name="cuq_13" value="2"/></td><td><input type="radio" name="cuq_13" value="3"/></td><td><input type="radio" name="cuq_13" value="4"/></td><td><input type="radio" name="cuq_13" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">14</td><td>The chatbot seemed unable to handle any errors</td>
+          <td><input type="radio" name="cuq_14" value="1"/></td><td><input type="radio" name="cuq_14" value="2"/></td><td><input type="radio" name="cuq_14" value="3"/></td><td><input type="radio" name="cuq_14" value="4"/></td><td><input type="radio" name="cuq_14" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">15</td><td>The chatbot was very easy to use</td>
+          <td><input type="radio" name="cuq_15" value="1"/></td><td><input type="radio" name="cuq_15" value="2"/></td><td><input type="radio" name="cuq_15" value="3"/></td><td><input type="radio" name="cuq_15" value="4"/></td><td><input type="radio" name="cuq_15" value="5"/></td></tr>
+        <tr class="cuq-row"><td class="center">16</td><td>The chatbot was very complex</td>
+          <td><input type="radio" name="cuq_16" value="1"/></td><td><input type="radio" name="cuq_16" value="2"/></td><td><input type="radio" name="cuq_16" value="3"/></td><td><input type="radio" name="cuq_16" value="4"/></td><td><input type="radio" name="cuq_16" value="5"/></td></tr>
       </table>
 
       <table>
-        <tr><td class="lab">CUQ score (0–100)</td><td class="blank">&nbsp;</td></tr>
-        <tr><td class="lab">Optional SUS score (if your study adds SUS)</td><td class="blank">&nbsp;</td></tr>
-        <tr><td class="lab">I understand this is <em>not</em> my history exam mark</td><td>Yes / No</td></tr>
+        <tr>
+          <td class="lab">CUQ score (0–100)</td>
+          <td class="score-line">
+            <input type="text" name="d_cuq" id="d_cuq" readonly placeholder="—"/>
+            <button type="button" class="btn btn-ghost no-print" id="btnCuq" style="background:#e8eef3;color:#0b3d5c">Calculate</button>
+          </td>
+        </tr>
+        <tr><td class="lab">Optional SUS score</td><td><input type="text" name="d_sus" placeholder="if used"/></td></tr>
+        <tr><td class="lab">I understand this is <em>not</em> my history exam mark</td><td>
+          <label class="choice"><input type="radio" name="d_not_exam" value="Yes"/> Yes</label>
+          <label class="choice"><input type="radio" name="d_not_exam" value="No"/> No</label>
+        </td></tr>
       </table>
-      <p class="note">Score = [(sum of odd items − 8) + (40 − sum of even items)] / 64 × 100. Hand this packet back after completing CUQ. Do not fill Sheets A–C.</p>
+      <p class="note">Score = [(sum of odd items − 8) + (40 − sum of even items)] / 64 × 100. Do not fill Sheets A–C as a student.</p>
     </div>
   </section>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+<script>
+(function () {
+  const KEY = "vp-framework-sheets-ex-cp-01-v1";
+  const root = document.getElementById("formRoot");
+  const statusEl = document.getElementById("saveStatus");
+
+  function allFields() {
+    return root.querySelectorAll("input, textarea, select");
+  }
+
+  function save() {
+    const data = {};
+    allFields().forEach((el) => {
+      if (!el.name) return;
+      if (el.type === "checkbox") data[el.name] = el.checked;
+      else if (el.type === "radio") {
+        if (el.checked) data[el.name] = el.value;
+      } else data[el.name] = el.value;
+    });
+    localStorage.setItem(KEY, JSON.stringify(data));
+    statusEl.textContent = "Saved " + new Date().toLocaleTimeString();
+  }
+
+  function load() {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return;
+    let data;
+    try { data = JSON.parse(raw); } catch { return; }
+    allFields().forEach((el) => {
+      if (!el.name || !(el.name in data)) return;
+      if (el.type === "checkbox") el.checked = !!data[el.name];
+      else if (el.type === "radio") el.checked = data[el.name] === el.value;
+      else el.value = data[el.name];
+    });
+    statusEl.textContent = "Restored from browser";
+  }
+
+  function countB1() {
+    let yes = 0, answered = 0;
+    for (let i = 1; i <= 12; i++) {
+      const c = root.querySelector(`input[name="b1_${i}"]:checked`);
+      if (c) {
+        answered++;
+        if (c.value === "Yes") yes++;
+      }
+    }
+    document.getElementById("b1_total").value = yes + " / 12" + (answered < 12 ? ` (${answered} answered)` : "");
+    save();
+  }
+
+  function sumC() {
+    let used = 0, anyErr = 0, contra = 0;
+    for (let i = 1; i <= 8; i++) {
+      const note = (root.querySelector(`[name="c_t${i}_note"]`) || {}).value || "";
+      const flags = ["wrong", "extra", "role", "off", "contra"].map(
+        (k) => root.querySelector(`[name="c_t${i}_${k}"]`)
+      );
+      const hasNote = note.trim().length > 0;
+      const hasFlag = flags.some((f) => f && f.checked);
+      if (hasNote || hasFlag) used++;
+      if (hasFlag) anyErr++;
+      if (flags[4] && flags[4].checked) contra++;
+    }
+    const total = used || 8;
+    document.getElementById("c_sum_err").value = anyErr + " / " + total;
+    document.getElementById("c_sum_contra").value = contra + " / " + total;
+    save();
+  }
+
+  function calcCuq() {
+    let odd = 0, even = 0, n = 0;
+    for (let i = 1; i <= 16; i++) {
+      const c = root.querySelector(`input[name="cuq_${i}"]:checked`);
+      if (!c) continue;
+      n++;
+      const v = Number(c.value);
+      if (i % 2 === 1) odd += v; else even += v;
+    }
+    if (n < 16) {
+      document.getElementById("d_cuq").value = "Fill all 16 items (" + n + "/16)";
+      return;
+    }
+    const score = ((odd - 8) + (40 - even)) / 64 * 100;
+    document.getElementById("d_cuq").value = score.toFixed(1);
+    save();
+  }
+
+  async function exportPdf() {
+    const btn = document.getElementById("btnPdf");
+    btn.disabled = true;
+    btn.textContent = "Exporting…";
+    statusEl.textContent = "Building PDF…";
+    // Expand textareas for capture
+    const areas = root.querySelectorAll("textarea");
+    const prev = [];
+    areas.forEach((ta) => {
+      prev.push(ta.style.height);
+      ta.style.height = Math.max(ta.scrollHeight, 40) + "px";
+    });
+    try {
+      const opt = {
+        margin: [8, 8, 8, 8],
+        filename: "VP-framework-sheets-EX-CP-01-filled.pdf",
+        image: { type: "jpeg", quality: 0.96 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        pagebreak: { mode: ["css", "legacy"], after: ".sheet" }
+      };
+      await html2pdf().set(opt).from(root).save();
+      statusEl.textContent = "PDF downloaded";
+    } catch (e) {
+      console.error(e);
+      statusEl.textContent = "Export failed — try Print / Save PDF";
+      alert("Direct PDF export failed. Use “Print / Save PDF…” instead (choose Save as PDF).");
+    } finally {
+      areas.forEach((ta, i) => { ta.style.height = prev[i] || ""; });
+      btn.disabled = false;
+      btn.textContent = "Export PDF";
+    }
+  }
+
+  root.addEventListener("input", save);
+  root.addEventListener("change", save);
+  document.getElementById("btnClear").onclick = () => {
+    if (!confirm("Clear all filled answers on this device?")) return;
+    localStorage.removeItem(KEY);
+    location.reload();
+  };
+  document.getElementById("btnPrint").onclick = () => window.print();
+  document.getElementById("btnPdf").onclick = exportPdf;
+  document.getElementById("btnCountB1").onclick = countB1;
+  document.getElementById("btnSumC").onclick = sumC;
+  document.getElementById("btnCuq").onclick = calcCuq;
+
+  // default today
+  const today = new Date().toISOString().slice(0, 10);
+  ["b_date", "d_date"].forEach((n) => {
+    const el = root.querySelector(`[name="${n}"]`);
+    if (el && !el.value) el.value = today;
+  });
+
+  load();
+})();
+</script>
 </body>
 </html>
