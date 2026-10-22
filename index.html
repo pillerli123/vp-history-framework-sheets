@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>History-taking VP testing framework — Sheets A–D (worked example EX-CP-01)</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #5a5a5a;
+    --line: #222;
+    --head: #0b3d5c;
+    --bg: #fafafa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Calibri, Arial, sans-serif;
+    color: var(--ink);
+    background: #e8e8e8;
+    line-height: 1.35;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 16px; }
+  .toc {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+  }
+  .toc h1 { font-size: 1.15rem; margin: 0 0 6px; color: var(--head); }
+  .toc p { margin: 4px 0; font-size: 0.9rem; color: var(--muted); }
+  .toc a { color: var(--head); margin-right: 12px; }
+  .sheet {
+    background: #fff;
+    border: 1px solid #999;
+    margin-bottom: 20px;
+    padding: 0 0 14px;
+    page-break-after: always;
+  }
+  .banner {
+    border-bottom: 2px solid var(--line);
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: #f3f6f8;
+  }
+  .banner strong { color: var(--head); }
+  .banner em { color: var(--muted); font-style: italic; }
+  .banner .title { width: 100%; font-weight: 700; font-size: 1.05rem; margin-top: 4px; }
+  .body { padding: 12px 14px; }
+  h3 { margin: 14px 0 8px; font-size: 0.95rem; color: var(--head); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin: 6px 0 10px;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 6px 8px;
+    vertical-align: top;
+  }
+  th { background: #eef2f5; text-align: left; }
+  .lab { width: 34%; font-weight: 600; background: #f7f7f7; }
+  .blank { min-height: 1.2em; }
+  .note { font-size: 0.8rem; color: var(--muted); margin: 8px 0 0; }
+  .tick { font-family: "Segoe UI Symbol", sans-serif; }
+  .center { text-align: center; width: 48px; }
+  .nav { position: sticky; top: 0; z-index: 5; background: #0b3d5c; color: #fff; padding: 8px 16px; font-size: 0.85rem; }
+  .nav a { color: #cfe8f7; margin-right: 14px; text-decoration: none; }
+  .nav a:hover { text-decoration: underline; }
+  @media print {
+    body { background: #fff; }
+    .nav, .toc { display: none; }
+    .sheet { border: none; margin: 0; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+<div class="nav">
+  VP testing framework sheets ·
+  <a href="#sheet-a">Sheet A</a>
+  <a href="#sheet-b">Sheet B</a>
+  <a href="#sheet-c">Sheet C</a>
+  <a href="#sheet-d">Sheet D</a>
+</div>
+<div class="wrap">
+  <div class="toc">
+    <h1>Complete testing framework protocol (worked example EX-CP-01)</h1>
+    <p>Packet 1 (teachers): Sheets A–C. Packet 2 (students): Sheet D only.</p>
+    <p>Session order: <strong>A (once) → interview → D → B → C</strong>. Do not sum B, C, and D into one overall score.</p>
+    <p>The twelve history items illustrate mapping a named guide to case facts; they are <em>not</em> a new validated instrument. Replace with the school guide before a real study.</p>
+    <p>
+      <a href="#sheet-a">Sheet A — Study setup</a>
+      <a href="#sheet-b">Sheet B — Learner history score</a>
+      <a href="#sheet-c">Sheet C — Simulator log</a>
+      <a href="#sheet-d">Sheet D — CUQ (student)</a>
+    </p>
+  </div>
+
+  <!-- ========== SHEET A ========== -->
+  <section class="sheet" id="sheet-a">
+    <div class="banner">
+      <strong>PACKET 1 — TEACHER</strong>
+      <em>Do not give to students</em>
+      <div class="title">Sheet A. Study setup (worked example EX-CP-01)</div>
+    </div>
+    <div class="body">
+      <h3>1. Study identity</h3>
+      <table>
+        <tr><td class="lab">Protocol title</td><td>History-taking VP test — worked example</td></tr>
+        <tr><td class="lab">Programme / learner year</td><td>Clerkship / Year 4 (replace locally)</td></tr>
+        <tr><td class="lab">Named history guide</td><td>Local OSCE-style chest-pain history list (example; replace with school guide)</td></tr>
+        <tr><td class="lab">Number of checklist items</td><td>12</td></tr>
+        <tr><td class="lab">Case 1</td><td>EX-CP-01; acute chest pain; English</td></tr>
+        <tr><td class="lab">Case 2 (if any)</td><td>—</td></tr>
+        <tr><td class="lab">Case 3 (if any)</td><td>—</td></tr>
+        <tr><td class="lab">Teacher 1</td><td class="blank">&nbsp;</td></tr>
+        <tr><td class="lab">Teacher 2 (checks Sheet C)</td><td class="blank">&nbsp;</td></tr>
+        <tr><td class="lab">Agreement metric</td><td>AC1 / κ / ICC: _______________</td></tr>
+        <tr><td class="lab">Automation uses same checklist?</td><td>Yes / No &nbsp;&nbsp; Rule: _______________</td></tr>
+      </table>
+
+      <h3>2. Claims to score (example ticks; change if needed)</h3>
+      <table>
+        <tr><td class="lab">B1 History content checklist (required)</td><td><span class="tick">☑ Yes</span> &nbsp; ☐ No</td></tr>
+        <tr><td class="lab">B2 Interviewing process (optional)</td><td>☐ Yes &nbsp; <span class="tick">☑ No</span></td></tr>
+        <tr><td class="lab">B3 Diagnostic accuracy</td><td><span class="tick">☑ Yes</span> &nbsp; ☐ No</td></tr>
+        <tr><td class="lab">C Simulator fidelity / cross-turn consistency</td><td><span class="tick">☑ Yes</span> &nbsp; ☐ No</td></tr>
+        <tr><td class="lab">D Dialogue usability (CUQ)</td><td><span class="tick">☑ Yes</span> &nbsp; ☐ No</td></tr>
+      </table>
+
+      <h3>3. If B2 = Yes, choose exactly one process tool</h3>
+      <table>
+        <tr><td class="lab">P1 Setrakian four domains (Setrakian et al., 2020)</td><td>☐</td></tr>
+        <tr><td class="lab">P2 CRI-HT-S (Fürstenberg et al., 2020)</td><td>☐</td></tr>
+        <tr><td class="lab">P3 Chen 12 codes (Chen et al., 2026)</td><td>☐</td></tr>
+      </table>
+
+      <h3>4. Case facts (EX-CP-01) — script for the virtual patient</h3>
+      <table>
+        <tr><td class="lab">Patient</td><td>52-year-old man</td></tr>
+        <tr><td class="lab">Chief complaint</td><td>Crushing central chest pain for 45 minutes</td></tr>
+        <tr><td class="lab">Key facts teachers score on Sheet B</td><td>Onset at rest; pressure/crushing; radiates to left arm; 7/10; worse with exertion; no relief yet; dyspnea; sweating; no syncope; first episode; smoker + hypertension; amlodipine only; father MI at age 54</td></tr>
+        <tr><td class="lab">Accepted key diagnosis (for B3)</td><td>Suspected acute coronary syndrome (ACS to be ruled out)</td></tr>
+      </table>
+      <p class="note">Item-by-item scoring map is printed on Sheet B (stem = fact that counts as Yes). Chest-pain dialogue coding precedent: Chen et al., 2026.</p>
+    </div>
+  </section>
+
+  <!-- ========== SHEET B ========== -->
+  <section class="sheet" id="sheet-b">
+    <div class="banner">
+      <strong>PACKET 1 — TEACHER</strong>
+      <em>One sheet per encounter — EX-CP-01</em>
+      <div class="title">Sheet B. Learner history score (worked example)</div>
+    </div>
+    <div class="body">
+      <table>
+        <tr><th>Learner ID</th><th>Case ID</th><th>Teacher ID</th><th>Date</th></tr>
+        <tr><td class="blank">&nbsp;</td><td>EX-CP-01</td><td class="blank">&nbsp;</td><td class="blank">&nbsp;</td></tr>
+      </table>
+
+      <h3>B1. History content</h3>
+      <p class="note">Tick Yes only if the learner elicited that case fact (heard in the interview).</p>
+      <table>
+        <tr><th class="center">No.</th><th>Stem</th><th>Fact that counts as Yes</th><th class="center">Yes</th><th class="center">No</th></tr>
+        <tr><td class="center">1</td><td>Onset / timing</td><td>Pain began about 45 min ago, at rest</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">2</td><td>Character</td><td>Crushing or pressure-like</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">3</td><td>Location / radiation</td><td>Central chest; radiates to left arm</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">4</td><td>Severity</td><td>About 7/10 (or equivalent)</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">5</td><td>Aggravating factors</td><td>Worse with exertion</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">6</td><td>Relieving factors</td><td>No relief so far / GTN not used</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">7</td><td>Associated dyspnea</td><td>Short of breath with the pain</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">8</td><td>Autonomic symptoms</td><td>Sweating (diaphoresis)</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">9</td><td>Syncope</td><td>No fainting / near-syncope</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">10</td><td>Prior cardiac history</td><td>First such episode; no known CAD</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">11</td><td>Risk factors</td><td>Current smoker and hypertension (both)</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">12</td><td>Family history</td><td>Father had MI at age 54</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td colspan="3"><strong>Total Yes / 12</strong></td><td colspan="2" class="center">_______</td></tr>
+      </table>
+
+      <h3>B2. Process</h3>
+      <p class="note">Skip in this example — Sheet A ticked No. If used later, circle one tool only.</p>
+      <table>
+        <tr><th class="center">P1 Setrakian</th><th class="center">P2 CRI-HT-S</th><th class="center">P3 Chen 12</th><th>Score / summary</th></tr>
+        <tr><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td>—</td></tr>
+      </table>
+
+      <h3>B3. Diagnosis (this example: Yes)</h3>
+      <table>
+        <tr><th>Accepted key diagnosis</th><th class="center">Correct?</th><th>What learner wrote</th></tr>
+        <tr><td>Suspected ACS / ACS to be ruled out</td><td class="center">Yes / No</td><td class="blank">&nbsp;</td></tr>
+      </table>
+
+      <h3>Agreement</h3>
+      <table>
+        <tr><td class="lab">Human agreement (overall)</td><td class="blank">&nbsp;</td></tr>
+        <tr><td class="lab">Automation–human agreement (if used)</td><td class="blank">&nbsp;</td></tr>
+      </table>
+      <p class="note">Replace all twelve stems with the school guide before a real study. CUQ does not belong on this sheet.</p>
+    </div>
+  </section>
+
+  <!-- ========== SHEET C ========== -->
+  <section class="sheet" id="sheet-c">
+    <div class="banner">
+      <strong>PACKET 1 — TEACHER</strong>
+      <em>Scores the VP reply, not the learner — EX-CP-01</em>
+      <div class="title">Sheet C. Simulator log</div>
+    </div>
+    <div class="body">
+      <table>
+        <tr><th>Learner ID</th><th>Case ID</th><th>Teacher marking C</th><th>Second teacher check</th></tr>
+        <tr><td class="blank">&nbsp;</td><td>EX-CP-01</td><td class="blank">&nbsp;</td><td class="blank">&nbsp;</td></tr>
+      </table>
+      <p class="note">Each row = one student question + VP reply. Tick errors on the <em>VP reply</em>. Use Sheet A case facts: the VP must not invent a new story or contradict an earlier answer.</p>
+      <table>
+        <tr>
+          <th class="center">Turn</th>
+          <th>Short note (student ask → VP said)</th>
+          <th class="center">Wrong target</th>
+          <th class="center">Extra talk</th>
+          <th class="center">Broke role</th>
+          <th class="center">Off case</th>
+          <th class="center">Contradicts</th>
+        </tr>
+        <tr><td class="center">1</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">2</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">3</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">4</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">5</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">6</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">7</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
+        <tr><td class="center">8</td><td></td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td><td class="center">☐</td></tr>
+      </table>
+      <p class="note">Wrong target = answers something else; Extra talk = says more than asked; Broke role = speaks as doctor; Off case = invents / breaks script (Song et al., 2026; Holderried et al., 2024; Yi and Kim, 2025).</p>
+
+      <h3>Summary</h3>
+      <table>
+        <tr><td class="lab">Turns with any error / total turns</td><td class="blank">&nbsp;</td></tr>
+        <tr><td class="lab">Turns that contradict an earlier fact / total</td><td class="blank">&nbsp;</td></tr>
+        <tr><td class="lab">Teacher–teacher disagreement on this sheet</td><td class="blank">&nbsp;</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ========== SHEET D ========== -->
+  <section class="sheet" id="sheet-d">
+    <div class="banner">
+      <strong>PACKET 2 — STUDENT</strong>
+      <em>Fill after the encounter — not a history exam mark</em>
+      <div class="title">Sheet D. Chatbot Usability Questionnaire (CUQ)</div>
+    </div>
+    <div class="body">
+      <table>
+        <tr><th>Learner ID</th><th>Case ID</th><th>Date</th></tr>
+        <tr><td class="blank">&nbsp;</td><td>EX-CP-01 (or your case)</td><td class="blank">&nbsp;</td></tr>
+      </table>
+      <p class="note">Circle one number per row. 1 = strongly disagree … 5 = strongly agree. Odd items positive; even items negative. Dialogue usability only (Holmes et al., 2019).</p>
+      <table>
+        <tr><th class="center">No.</th><th>Statement</th><th class="center">1</th><th class="center">2</th><th class="center">3</th><th class="center">4</th><th class="center">5</th></tr>
+        <tr><td class="center">1</td><td>The chatbot’s personality was realistic and engaging</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">2</td><td>The chatbot seemed too robotic</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">3</td><td>The chatbot was welcoming during initial setup</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">4</td><td>The chatbot seemed very unfriendly</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">5</td><td>The chatbot explained its scope and purpose well</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">6</td><td>The chatbot gave no indication as to its purpose</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">7</td><td>The chatbot was easy to navigate</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">8</td><td>It would be easy to get confused when using the chatbot</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">9</td><td>The chatbot understood me well</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">10</td><td>The chatbot failed to recognise a lot of my inputs</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">11</td><td>Chatbot responses were useful, appropriate and informative</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">12</td><td>Chatbot responses were irrelevant</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">13</td><td>The chatbot coped well with any errors or mistakes</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">14</td><td>The chatbot seemed unable to handle any errors</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">15</td><td>The chatbot was very easy to use</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+        <tr><td class="center">16</td><td>The chatbot was very complex</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
+      </table>
+
+      <table>
+        <tr><td class="lab">CUQ score (0–100)</td><td class="blank">&nbsp;</td></tr>
+        <tr><td class="lab">Optional SUS score (if your study adds SUS)</td><td class="blank">&nbsp;</td></tr>
+        <tr><td class="lab">I understand this is <em>not</em> my history exam mark</td><td>Yes / No</td></tr>
+      </table>
+      <p class="note">Score = [(sum of odd items − 8) + (40 − sum of even items)] / 64 × 100. Hand this packet back after completing CUQ. Do not fill Sheets A–C.</p>
+    </div>
+  </section>
+</div>
+</body>
+</html>
