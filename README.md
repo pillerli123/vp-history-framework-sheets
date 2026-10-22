@@ -1,25 +1,18 @@
-# History-taking VP testing framework — Sheets A–D
+﻿# History-taking VP testing framework — Sheets A–D
 
-Operational protocol sheets from *A Testing Framework for Educational Assessment of History-Taking Virtual Patients* (worked example **EX-CP-01**).
+Operational protocol sheets (worked example **EX-CP-01**).
 
-| File | Contents |
-| --- | --- |
-| [index.html](index.html) | Interactive / printable Sheets A–D |
-| [sheets-A-D.pdf](sheets-A-D.pdf) | Same sheets extracted from the framework paper (pp. 9–12) |
+## Live URL
+
+- **HTML (Sheets A–D):** https://pillerli123.github.io/vp-history-framework-sheets/
+- **PDF:** https://pillerli123.github.io/vp-history-framework-sheets/sheets-A-D.pdf
+- **Repo:** https://github.com/pillerli123/vp-history-framework-sheets
+
+Paste the HTML URL into the AMEE Oxford Abstracts **Methods** box.
 
 ## Packets
 
-- **Packet 1 (teachers):** Sheet A (setup) · Sheet B (learner history) · Sheet C (simulator log)
-- **Packet 2 (students):** Sheet D (CUQ only)
+- Packet 1 (teachers): A setup · B learner history · C simulator log
+- Packet 2 (students): D CUQ only
 
-Session order: **A → interview → D → B → C**. Do not sum B, C, and D into one score.
-
-## Public URL (after GitHub Pages)
-
-Once this folder is pushed to GitHub with Pages enabled on the `main` branch (root = this folder or `/docs`):
-
-```text
-https://<user>.github.io/<repo>/
-```
-
-Paste that HTTPS link into the AMEE Oxford Abstracts **Methods** box.
+Session order: **A → interview → D → B → C**
